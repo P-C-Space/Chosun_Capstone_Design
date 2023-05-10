@@ -36,3 +36,5 @@ fswebcam -r 1280*960 --no-banner image6.jpg
 <br>![image](https://github.com/P-C-Space/MyDataAnalysis02/assets/39722575/1c9f03c7-07d7-4063-ba08-112346cedbb7)
 * 10초이상 걸림 -> 다른 인공지능 모델 적용 예정
 * person 92% 높은 정확도 보유
+
+# ERROR
