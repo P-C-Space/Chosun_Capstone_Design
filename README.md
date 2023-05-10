@@ -19,3 +19,6 @@
 <br> ![image](https://github.com/P-C-Space/MyDataAnalysis02/assets/39722575/12cbb41e-add1-450a-9a0f-002ecad13909)
 * 웹캠 테스트
 <br> ![image](https://github.com/P-C-Space/MyDataAnalysis02/assets/39722575/514b54c1-a7e1-41d7-aae6-d0e619e92697)
+
+## yolo 테스트 - 2023/04/28
+* VNC를 통해 아이피 주소로 원격 라즈베리파이 연결
