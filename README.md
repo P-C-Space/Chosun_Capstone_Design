@@ -11,6 +11,9 @@
   * 객체감지나 센서 값이 전달되면 부저로 알림
 
 ## 하드웨어
-1. 라즈베리파이
 ![image](https://github.com/P-C-Space/MyDataAnalysis02/assets/39722575/3954d56c-e863-4077-953c-f3f0aabe1b2c)
 * 라즈베리파이4 (8GB) 스타터 키트
+
+## 웹캠 테스트
+* 라즈베리파이 웹캠 연결 확인 isusb
+* 
