@@ -42,7 +42,7 @@ fswebcam -r 1280*960 --no-banner image6.jpg
 YOLO 객체 인식 라이브러리를 사용하여 테스트를 한 결과, 객체 인식을 하는데 시간이 많이 걸리는 문제점이 있음
 보다 빠른 인식을 위해 Tensorflow-Lite 라이브러리로 변경
 
-#ERROR 
+* ERROR 
 **[웹캠 화면 출력 오류]**
 
 OepnCV 3.x와 달리 OepnCV 4.x 버전에서는 
@@ -62,6 +62,17 @@ cap.set(cv2.CAP_PROP_FRAME_WIDTH, hight) 코드를 추가하여 출력되는 화
 
 ## 오류 분석 및 문제 해결 - 2023/05/10
 * 포멧 후 YOLO 재설치
-Tensorflow-Lite 라이브러리 설치 시 환경 설정 등 잦은 오류로  YOLO를 다시 사용하기로 하였다.
+Tensorflow-Lite 라이브러리 설치 시 환경 설정 등 잦은 오류로 YOLO를 다시 사용하기로 하였다.
+
+YOLO 일반 모델 적용 시 4GB 메모리를 가진 GPU(그래픽카드)가 필요. 하지만 라즈베리 파이는 CPU 위주로써 거의 불가능에 가까움
+
+이러한 문제를 해결하기 위해 'YOLO-Tiny' 모델 사용(이 모델은 1G 메모리를 가진 그래픽 카드가 필요함)
+라즈베리파이에 사용하기에는 속도가 느리긴 하나, 어느정도 객체인식이 가능하게 됨
+
+-YOLO 가중치 파일 다운로드 링크: [yolov3 weight(가중치) 다운 (velog.io)](https://velog.io/@jeongm/yolov3-weight%EA%B0%80%EC%A4%91%EC%B9%98-%EB%8B%A4%EC%9A%B4)
+
+-YOLO Object Detection 알고리즘 참고 링크(1): [https://bong-sik.tistory.com/16](https://bong-sik.tistory.com/16)
+
+-YOLO Object Detection 알고리즘 참고 링크(2): [https://bong-sik.tistory.com/16](https://deep-eye.tistory.com/6)
 
 
