@@ -57,7 +57,7 @@ cap.set(cv2.CAP_PROP_FRAME_WIDTH, hight) 코드를 추가하여 출력되는 화
 *ERROR: Could not find version that satisfies the requirement tensorflow*
 *ERROR: No matching distribution found for tensorflow*
 
-이러한 오류를 해결하기 위해 하위버전 지정설치 및 콘다(conda)를 이용하여 Tensorflow 설치 등을 시도하였으나, 여전한 오류 발생
+이러한 오류를 해결하기 위해 하위버전 지정설치 및 콘다(conda)와 virtualenv를 이용하여 Tensorflow 설치 등을 시도하였으나, 여전한 오류 발생
 
 ## 오류 분석 및 문제 해결 - 2023/05/10
 * 포멧 후 YOLO 재설치
