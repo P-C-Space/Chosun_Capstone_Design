@@ -50,12 +50,18 @@ OepnCV 3.x와 달리 OepnCV 4.x 버전에서는
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
 
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, hight) 코드를 추가하여 출력되는 화면의 사이즈를 지정해줌
+
 **[Tensorflow Lite와 파이썬 버전 호환 문제]**
 
-![오류1.JPG](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/838d7590-79a1-463b-9d38-dd6e7aeffb8e/%EC%98%A4%EB%A5%981.jpg)
+![오류1 JPG](https://github.com/P-C-Space/Chosun_Capstone_Design/assets/90131881/a1ae424f-a353-4c5c-9f2b-98b49e9e96d7)
 
 *ERROR: Could not find version that satisfies the requirement tensorflow*
-
 *ERROR: No matching distribution found for tensorflow*
+
+이러한 오류를 해결하기 위해 하위버전 지정설치 및 콘다(conda)를 이용하여 Tensorflow 설치 등을 시도하였으나, 여전한 오류 발생
+
+## 오류 분석 및 문제 해결 - 2023/05/10
+* 포멧 후 YOLO 재설치
+Tensorflow-Lite 라이브러리 설치 시 환경 설정 등 잦은 오류로  YOLO를 다시 사용하기로 하였다.
 
 
