@@ -37,4 +37,25 @@ fswebcam -r 1280*960 --no-banner image6.jpg
 * 10초이상 걸림 -> 다른 인공지능 모델 적용 예정
 * person 92% 높은 정확도 보유
 
-# ERROR
+## 실시간 객체 인식 구현 - 2023/05/03
+* 실시간 객체인식(Object Detection) 구현
+YOLO 객체 인식 라이브러리를 사용하여 테스트를 한 결과, 객체 인식을 하는데 시간이 많이 걸리는 문제점이 있음
+보다 빠른 인식을 위해 Tensorflow-Lite 라이브러리로 변경
+
+#ERROR 
+**[웹캠 화면 출력 오류]**
+
+OepnCV 3.x와 달리 OepnCV 4.x 버전에서는 
+
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
+
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, hight) 코드를 추가하여 출력되는 화면의 사이즈를 지정해줌
+**[Tensorflow Lite와 파이썬 버전 호환 문제]**
+
+![오류1.JPG](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/838d7590-79a1-463b-9d38-dd6e7aeffb8e/%EC%98%A4%EB%A5%981.jpg)
+
+*ERROR: Could not find version that satisfies the requirement tensorflow*
+
+*ERROR: No matching distribution found for tensorflow*
+
+
