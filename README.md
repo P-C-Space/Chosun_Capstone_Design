@@ -42,7 +42,7 @@ fswebcam -r 1280*960 --no-banner image6.jpg
 YOLO 객체 인식 라이브러리를 사용하여 테스트를 한 결과, 객체 인식을 하는데 시간이 많이 걸리는 문제점이 있음
 보다 빠른 인식을 위해 Tensorflow-Lite 라이브러리로 변경
 
-* ERROR 
+##ERROR 
 **[웹캠 화면 출력 오류]**
 
 OepnCV 3.x와 달리 OepnCV 4.x 버전에서는 
