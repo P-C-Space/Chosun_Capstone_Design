@@ -3,8 +3,8 @@ import numpy as np
 
 # webcam signal
 VideoSignal = cv2.VideoCapture(0)
-# VideoSignal.set(cv2.CAP_PROP_FRAME_WIDTH, 320)
-# VideoSignal.set(cv2.CAP_PROP_FRAME_HEIGHT,240)
+VideoSignal.set(cv2.CAP_PROP_FRAME_WIDTH, 320)
+VideoSignal.set(cv2.CAP_PROP_FRAME_HEIGHT,240)
 
 # yolo weight file
 YOLO_net = cv2.dnn.readNet("yolov2-tiny.weights","yolov2-tiny.cfg")
@@ -21,6 +21,30 @@ output_layers = [layer_names[i - 1] for i in YOLO_net.getUnconnectedOutLayers()]
 # print(output_layers)
 colors = np.random.uniform(0,255,size = (len(classes),3 ))
 
+# video brightness calculate
+def calculate_brightness(image):
+	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+	brightness = np.mean(gray)
+	return brightness
+
+def detect__lighting_condition(brithtness, threshold=100): # threshold
+	if brightness < threshold:
+		return 'dark'
+	else:
+		return 'bright'
+		
+def adjust_brightness(image, lighting_condition):
+    if lighting_condition == 'dark':
+      alpha = 7.0
+      beta = 50.0
+    else:
+      alpha = 1.0
+      beta = 0
+    
+    adjusted = cv2.convertScaleAbs(image, alpha=alpha, beta=beta)
+    return adjusted
+
+
 while True:
 	# read the actual frame
 	for i in range(2):
@@ -28,6 +52,14 @@ while True:
 	# webcam Frame
 	ret, frame = VideoSignal.read()
 	h,w,c = frame.shape # height width, channel
+	
+	# adjusting brightness 
+	brightness = calculate_brightness(frame)
+	print(brightness)
+	lighting_condition = detect__lighting_condition(brightness)
+	print(lighting_condition)
+	frame = adjust_brightness(frame, lighting_condition)
+	
 	
 	# yolo input
 	blob = cv2.dnn.blobFromImage(frame, 0.00392, (320,240), (0,0,0), True, crop = False)
@@ -72,7 +104,6 @@ while True:
 	
 	cv2.imshow("YOLOv2",frame)
 	
-	if cv2.waitKey(100) > 0:
+	if cv2.waitKey(20) > 0:
 		break
-	
 	
