@@ -1,6 +1,10 @@
 import cv2
 import numpy as np
+from gpiozero import Buzzer
+from time import sleep
 
+# buzzer setting
+buzzer = Buzzer(17)
 
 # webcam signal
 VideoSignal = cv2.VideoCapture(0)
@@ -9,7 +13,8 @@ VideoSignal.set(cv2.CAP_PROP_FRAME_HEIGHT,100)
 
 
 # yolo weight file
-YOLO_net = cv2.dnn.readNet("yolov2-tiny.weights","yolov2-tiny.cfg")
+#YOLO_net = cv2.dnn.readNet("yolov2-tiny.weights","yolov2-tiny.cfg")
+YOLO_net = cv2.dnn.readNet("/home/god/yolo/darknet/test/yolov2-tiny.weights","/home/god/yolo/darknet/test/yolov2-tiny.cfg")
 # print(YOLO_net)
 
 classes = ["person"]
@@ -79,7 +84,11 @@ while True:
 			confidence = scores[class_id]
 
 			if confidence > 0.1 and classes and class_id < len(classes) and classes[class_id] == "person":
-				print('BEEP!!')
+				# buzzer sound
+				buzzer.on() 
+				sleep(0.1)
+				buzzer.off() 
+				
 				
 				# Object detected
 				center_x = int(detection[0] * w)
@@ -112,4 +121,5 @@ while True:
 	
 	if cv2.waitKey(20) == ord('q'):
 		break
+	
 	
