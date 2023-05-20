@@ -1,10 +1,12 @@
 import cv2
 import numpy as np
 
+
 # webcam signal
 VideoSignal = cv2.VideoCapture(0)
-VideoSignal.set(cv2.CAP_PROP_FRAME_WIDTH, 320)
-VideoSignal.set(cv2.CAP_PROP_FRAME_HEIGHT,240)
+VideoSignal.set(cv2.CAP_PROP_FRAME_WIDTH, 120)
+VideoSignal.set(cv2.CAP_PROP_FRAME_HEIGHT,100)
+
 
 # yolo weight file
 YOLO_net = cv2.dnn.readNet("yolov2-tiny.weights","yolov2-tiny.cfg")
@@ -27,7 +29,7 @@ def calculate_brightness(image):
 	brightness = np.mean(gray)
 	return brightness
 
-def detect__lighting_condition(brithtness, threshold=100): # threshold
+def detect__lighting_condition(brithtness, threshold=60): # threshold
 	if brightness < threshold:
 		return 'dark'
 	else:
@@ -46,6 +48,7 @@ def adjust_brightness(image, lighting_condition):
 
 
 while True:
+	print('\a')
 	# read the actual frame
 	for i in range(2):
 		VideoSignal.grab()
@@ -55,14 +58,14 @@ while True:
 	
 	# adjusting brightness 
 	brightness = calculate_brightness(frame)
-	print(brightness)
+	# print(brightness)
 	lighting_condition = detect__lighting_condition(brightness)
-	print(lighting_condition)
+	# print(lighting_condition)
 	frame = adjust_brightness(frame, lighting_condition)
 	
 	
 	# yolo input
-	blob = cv2.dnn.blobFromImage(frame, 0.00392, (320,240), (0,0,0), True, crop = False)
+	blob = cv2.dnn.blobFromImage(frame, 0.00392, (120,100), (0,0,0), True, crop = False)
 	YOLO_net.setInput(blob)
 	outs = YOLO_net.forward(output_layers)
 	class_ids = []
@@ -76,6 +79,8 @@ while True:
 			confidence = scores[class_id]
 
 			if confidence > 0.1 and classes and class_id < len(classes) and classes[class_id] == "person":
+				print('BEEP!!')
+				
 				# Object detected
 				center_x = int(detection[0] * w)
 				center_y = int(detection[1] * h)
@@ -102,8 +107,9 @@ while True:
 			cv2.rectangle(frame, (x,y), (x+w,y+h), color,2)
 			cv2.putText(frame, label, (x,y+30),cv2.FONT_ITALIC,3, color,3)
 	
+	# cv2.namedWindow("YOLOv2", cv2.WINDOW_NORMAL)
 	cv2.imshow("YOLOv2",frame)
 	
-	if cv2.waitKey(20) > 0:
+	if cv2.waitKey(20) == ord('q'):
 		break
 	
