@@ -75,4 +75,7 @@ YOLO 일반 모델 적용 시 4GB 메모리를 가진 GPU(그래픽카드)가 �
 
 -YOLO Object Detection 알고리즘 참고 링크(2): [https://bong-sik.tistory.com/16](https://deep-eye.tistory.com/6)
 
-## 테스트
+## 추가센서 구성 - 2023-05-30
+* 아두이노로 초음파 센서 및 적외선 센서로 추가 감지
+* 아두이노로 감지한 값을 블루투스로 라즈베리파이에 전송
+* 라즈베리파이에서 부저 및 led 출력
