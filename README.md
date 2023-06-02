@@ -80,7 +80,20 @@ YOLO 일반 모델 적용 시 4GB 메모리를 가진 GPU(그래픽카드)가 �
 * 아두이노로 감지한 값을 블루투스로 라즈베리파이에 전송
 * 라즈베리파이에서 부저 및 led 출력
 
-### 전체 코드
+## 라즈베리파이 아두이노 블루투스 송수신 확인
+![블루투스 통신 라즈베리파이에서 확인](https://github.com/P-C-Space/Chosun_Capstone_Design/assets/39722575/d995d9ca-ce54-4fa4-b25a-1cd7bb45e03d)
+![블루투스 통신 라즈베리파이에서 확인2](https://github.com/P-C-Space/Chosun_Capstone_Design/assets/39722575/66d6967a-f163-4a53-9146-953ef9b63863)
+
+## LED 센서 추가 장착
+https://github.com/P-C-Space/Chosun_Capstone_Design/assets/39722575/ebdc6a0d-f1fe-43b8-af74-6a583f43dc03
+
+## 블루투스 연결된 상태에서 초음파 감지 확인
+https://github.com/P-C-Space/Chosun_Capstone_Design/assets/39722575/c31469ad-c3b6-4bde-b162-66de3d88bbfd
+
+## 객체인식 후 LED 부저 확인
+https://github.com/P-C-Space/Chosun_Capstone_Design/assets/39722575/c0d28d8e-60ab-4890-9612-84c8c8e7f5d0
+
+## 전체 코드 - 라즈베리파이 부분
 ```
 import cv2
 import numpy as np
@@ -239,4 +252,68 @@ while True:
 		break
 	
 	
+```
+## 아두이노 부분
+```
+#include <SoftwareSerial.h> // bluetooth
+
+int Tx = 10;
+int Rx = 11;
+
+SoftwareSerial mySerial(Tx,Rx);
+
+// 초음파 센서
+int trigPin = 4;
+int echoPin = 5;
+float duration,distance; // 거리 측정 변수
+
+// 인체공학센서 - 적외선 센서
+int infrared_ray = 6;
+int val = 0;
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+  mySerial.begin(9600);
+  Serial.println("Start_BlueTooth");
+ 
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  pinMode(infrared_ray,INPUT);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+
+  val = digitalRead(infrared_ray);
+ 
+  digitalWrite(trigPin,HIGH); // 초음파 출력
+  delay(10); // 0.01초 만큼 정지
+  digitalWrite(trigPin,LOW); // 초음파 출력 중지
+ 
+  duration = pulseIn(echoPin,HIGH); // echo가 HIGH인 시간
+  // HIGH일 때 초음파를 보내고 돌아오는 시간을 계산
+  // 340은 초당 소리의 속도
+  // 10000은 밀리세컨드 => 세컨드
+  // 왕복거리이므로 2로 나눔
+  distance = ((float)(340*duration) / 10000) / 2;
+
+  // 거리가 3m 이하이거나 val값이 1 => 사람이 있다고 측정되면 1전송
+  if(val == 1 || distance <= 30){
+    mySerial.write("1");
+  }
+  else{
+    mySerial.write("0");
+  }
+
+ //출력 확인
+  Serial.print("움직이면 1 아니면 0 : ");
+  Serial.print(val);
+  Serial.print("\nDuration: "); // duration 출력
+  Serial.print(duration);
+  Serial.print("\nDistance : "); // distance 거리 출력
+  Serial.print(distance);
+  Serial.println("cm\n");
+  delay(500);
+}
 ```
