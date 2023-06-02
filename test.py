@@ -1,7 +1,23 @@
 import cv2
 import numpy as np
+import time # 시간 체크
 from gpiozero import Buzzer
 from time import sleep
+from bluetooth import *
+import RPi.GPIO as GPIO
+
+# 블루투스 통신 체크
+socket = BluetoothSocket(RFCOMM)
+socket.connect(('블루투스 맥주소',1))
+
+# 시간 체크
+start_time = 0
+
+# LED
+led_pin = 18
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(led_pin,GPIO.OUT)
 
 # buzzer setting
 buzzer = Buzzer(17)
@@ -53,6 +69,14 @@ def adjust_brightness(image, lighting_condition):
 
 
 while True:
+
+	data = socket.recv(1024)
+	if(data == b'1'):
+		print(data)
+		buzzer.on()
+		GPIO.output(led_pin,1)
+		start_time = time.time()
+
 	print('\a')
 	# read the actual frame
 	for i in range(2):
@@ -85,9 +109,9 @@ while True:
 
 			if confidence > 0.1 and classes and class_id < len(classes) and classes[class_id] == "person":
 				# buzzer sound
-				buzzer.on() 
-				sleep(0.1)
-				buzzer.off() 
+				buzzer.on()
+				start_time = time.time()
+				GPIO.output(led_pin,1)
 				
 				
 				# Object detected
@@ -119,7 +143,15 @@ while True:
 	# cv2.namedWindow("YOLOv2", cv2.WINDOW_NORMAL)
 	cv2.imshow("YOLOv2",frame)
 	
+	if(start_time != 0):
+		if((time.time()-start_time)>=3):
+			start_time = 0
+			GPIO.output(led_pin,0)
+			buzzer.off()
+
 	if cv2.waitKey(20) == ord('q'):
+		socket.close()
+		GPIO.cleanup()
 		break
 	
 	
