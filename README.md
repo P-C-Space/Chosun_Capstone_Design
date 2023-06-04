@@ -93,6 +93,8 @@ https://github.com/P-C-Space/Chosun_Capstone_Design/assets/39722575/c31469ad-c3b
 ## 객체인식 후 LED 부저 확인
 https://github.com/P-C-Space/Chosun_Capstone_Design/assets/39722575/c0d28d8e-60ab-4890-9612-84c8c8e7f5d0
 
+## 현장 
+
 ## 전체 코드 - 라즈베리파이 부분
 ```
 import cv2
