@@ -2,8 +2,11 @@
 * 주제 :  dump truck accident prevention through object detection
 * https://www.notion.so/GOD-Guardians-Of-Dump-6222bb5ed4034dd0adcd08780fed3054
 * [제안서 발표 자료]()
+* [제안서]()
 * [중간 발표 자료]()
+* [중간 보고서]()
 * [최종 발표 자료]()
+* [최종 보고서]()
 ## 구상도 - 2023/04/07
 ![image](https://github.com/P-C-Space/MyDataAnalysis02/assets/39722575/2d21f363-3b32-4e09-b1dc-a03e97077e0f)
 * 차량 외부
