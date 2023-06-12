@@ -1,31 +1,31 @@
 import cv2
 import numpy as np
-import time # 시간 체크
+import time
 from gpiozero import Buzzer
 from time import sleep
 from bluetooth import *
 import RPi.GPIO as GPIO
 
-# 블루투스 통신 체크
-socket = BluetoothSocket(RFCOMM)
-socket.connect(('블루투스 맥주소',1))
 
-# 시간 체크
+sleep(10);
+
+socket = BluetoothSocket(RFCOMM)
+socket.connect(('98:DA:60:05:33:34',1))
 start_time = 0
 
-# LED
 led_pin = 18
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(led_pin,GPIO.OUT)
+GPIO.setup(led_pin, GPIO.OUT)
+
 
 # buzzer setting
 buzzer = Buzzer(17)
 
 # webcam signal
 VideoSignal = cv2.VideoCapture(0)
-VideoSignal.set(cv2.CAP_PROP_FRAME_WIDTH, 120)
-VideoSignal.set(cv2.CAP_PROP_FRAME_HEIGHT,100)
+VideoSignal.set(cv2.CAP_PROP_FRAME_WIDTH, 360)
+VideoSignal.set(cv2.CAP_PROP_FRAME_HEIGHT,240)
 
 
 # yolo weight file
@@ -50,7 +50,7 @@ def calculate_brightness(image):
 	brightness = np.mean(gray)
 	return brightness
 
-def detect__lighting_condition(brithtness, threshold=60): # threshold
+def detect__lighting_condition(brithtness, threshold=10): # threshold
 	if brightness < threshold:
 		return 'dark'
 	else:
@@ -69,20 +69,22 @@ def adjust_brightness(image, lighting_condition):
 
 
 while True:
-
 	data = socket.recv(1024)
 	if(data == b'1'):
 		print(data)
 		buzzer.on()
 		GPIO.output(led_pin,1)
 		start_time = time.time()
-
+		
+	
 	print('\a')
 	# read the actual frame
 	for i in range(2):
 		VideoSignal.grab()
 	# webcam Frame
 	ret, frame = VideoSignal.read()
+	# frame = cv2.flip(frame,0)
+	
 	h,w,c = frame.shape # height width, channel
 	
 	# adjusting brightness 
@@ -94,7 +96,7 @@ while True:
 	
 	
 	# yolo input
-	blob = cv2.dnn.blobFromImage(frame, 0.00392, (120,100), (0,0,0), True, crop = False)
+	blob = cv2.dnn.blobFromImage(frame, 0.00392, (360,240), (0,0,0), True, crop = False)
 	YOLO_net.setInput(blob)
 	outs = YOLO_net.forward(output_layers)
 	class_ids = []
@@ -109,7 +111,7 @@ while True:
 
 			if confidence > 0.1 and classes and class_id < len(classes) and classes[class_id] == "person":
 				# buzzer sound
-				buzzer.on()
+				buzzer.on() 
 				start_time = time.time()
 				GPIO.output(led_pin,1)
 				
@@ -141,17 +143,17 @@ while True:
 			cv2.putText(frame, label, (x,y+30),cv2.FONT_ITALIC,3, color,3)
 	
 	# cv2.namedWindow("YOLOv2", cv2.WINDOW_NORMAL)
+	
 	cv2.imshow("YOLOv2",frame)
 	
 	if(start_time != 0):
-		if((time.time()-start_time)>=3):
+		if((time.time() - start_time) >= 3):
 			start_time = 0
 			GPIO.output(led_pin,0)
 			buzzer.off()
-
+	
 	if cv2.waitKey(20) == ord('q'):
 		socket.close()
 		GPIO.cleanup()
 		break
-	
 	
