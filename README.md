@@ -1,12 +1,11 @@
 # Chosun_Capstone_Design
 * 주제 :  dump truck accident prevention through object detection
 * https://www.notion.so/GOD-Guardians-Of-Dump-6222bb5ed4034dd0adcd08780fed3054
-* [제안서 발표 자료]()
-* [제안서]()
-* [중간 발표 자료]()
-* [중간 보고서]()
-* [최종 발표 자료]()
-* [최종 보고서]()
+* [제안서 발표 자료](https://github.com/P-C-Space/Chosun_Capstone_Design/blob/main/%EC%82%B0%ED%95%99%EC%BA%A1%EC%8A%A4%ED%86%A4%EB%94%94%EC%9E%90%EC%9D%B8_God%20%EB%B0%9C%ED%91%9C%20%EB%B0%A9%EC%A4%80%EC%97%BD%2C%20%EC%9D%B4%EC%A0%95%EC%9A%B0%2C%20%EA%B0%95%EC%84%B1%EB%AF%BC.pptx)
+* [제안서](https://github.com/P-C-Space/Chosun_Capstone_Design/blob/main/%EC%82%B0%ED%95%99%EC%BA%A1%EC%8A%A4%ED%86%A4%EB%94%94%EC%9E%90%EC%9D%B8_%EC%B5%9C%EC%A2%85%EC%A0%9C%EC%95%88%EC%84%9C_GOD_%EC%9D%B4%EC%A0%95%EC%9A%B0%2C%EB%B0%A9%EC%A4%80%EC%97%BD%2C%EA%B0%95%EC%84%B1%EB%AF%BC.pdf)
+* [중간 발표 자료](https://github.com/P-C-Space/Chosun_Capstone_Design/blob/main/%EC%82%B0%ED%95%99%EC%BA%A1%EC%8A%A4%ED%86%A4%EB%94%94%EC%9E%90%EC%9D%B8_%EC%A4%91%EA%B0%84%EB%B0%9C%ED%91%9C_GOD%ED%8C%80.pptx)
+* [중간 보고서](https://github.com/P-C-Space/Chosun_Capstone_Design/blob/main/%EC%82%B0%ED%95%99%EC%BA%A1%EC%8A%A4%ED%86%A4%EB%94%94%EC%9E%90%EC%9D%B8_%EC%A4%91%EA%B0%84%EB%B3%B4%EA%B3%A0%EC%84%9C_GOD%ED%8C%80.hwp)
+* [최종 보고서](https://github.com/P-C-Space/Chosun_Capstone_Design/blob/main/%EC%82%B0%ED%95%99%EC%BA%A1%EC%8A%A4%ED%86%A4%EB%94%94%EC%9E%90%EC%9D%B8_%EC%B5%9C%EC%A2%85%EB%B3%B4%EA%B3%A0%EC%84%9C_GOD%ED%8C%80.hwp)
 ## 구상도 - 2023/04/07
 ![image](https://github.com/P-C-Space/MyDataAnalysis02/assets/39722575/2d21f363-3b32-4e09-b1dc-a03e97077e0f)
 * 차량 외부
